@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body{
+    background-image: url("../video/moving.gif");
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4vh;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    justify-items: center; 
+   
+  }
+  
+header {
+
+    
+    height: 100px;
+    color:rgb(77, 230, 230);
+    text-align: center;
+    margin-bottom: 4vh;
+}
+textarea{
+    height: 300px;
+    width: auto;
+    padding: 10px;
+    box-shadow: 20px;
+}
+section{
+  
+    
+    color: #fff;
+    padding: 4vh;
+    margin-bottom: 4vh;
+    box-shadow: 0 0 2vh rgb(4, 213, 250);
+
+}

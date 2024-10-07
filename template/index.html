@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Text Input Form</title>
+
+</head>
+
+<body>
+
+    <header> 
+         <h1 class="title">ASCII-ART-WEB</h1>
+        </header>
+        
+         
+                <form action="/ascii-art" method="POST">
+                    <label for="inputText">Enter Text:</label><br>
+                    <textarea type="text" id="inputText" name="inputText" placeholder="enter your text" required></textarea><br><br>
+                    <input type="radio" id="standard" name="choice" value="standard" checked>
+                    <label for="standard">standard</label><br>
+                    <input type="radio" id="shadow" name="choice" value="shadow">
+                    <label for="shadow">shadow</label><br>
+                    <input type="radio" id="thinkertoy" name="choice" value="thinkertoy">
+                    <label for="thinkertoy">thinkertoy</label><br><br>
+                    <input type="submit" value="Submit" class="submit">
+                </form>
+         
+            {{if .Message}}
+                <h2>Generated ASCII Art:</h2>
+            <pre class="output">{{ .Message }}</pre>
+           
+        
+           
+            {{end}}
+        
+
+
+   
+   
+    
+</body>
+
+</html>
