@@ -1,0 +1,70 @@
+body{
+    background-color: rgba(126, 109, 109, 0.445);
+
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.Ops{
+    font-size: 90px;
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(19, 18, 18);
+ 
+}
+
+.fh{
+    
+    font-size: 50px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+button{
+    background-color: rgb(3, 3, 3);
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button a{
+    text-decoration: none;
+    color : rgb(216, 216, 216);
+}
+button:hover{
+    transition: background-color 0.8s linear;
+    background-color: rgb(116, 116, 116);
+    a{
+        color: rgb(17, 16, 16);
+    }
+}
+
+
+
+@media (max-width:800px) {
+    .Ops{
+        font-size: 60px;
+
+    }
+    .fh{
+        font-size: 30px;
+    }
+    button{
+        font-size: 15px;
+    }
+}
+@media (max-width:400px) {
+    .Ops{
+        font-size: 30px;
+
+    }
+    .fh{
+        font-size: 15px;
+    }
+    button{
+        font-size: 8px;
+    }
+}

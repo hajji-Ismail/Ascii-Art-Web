@@ -4,43 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Text Input Form</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>ASCII-ART-WEB</title>
 
 </head>
 
 <body>
+    <header>
+        <h1 class="title">ASCII ART WEB</h1>
+    </header>
+    <main>
+        <form class="form" action="/ascii-art" method="POST">
+            <div class="forText">
+                <h2 class="text">Enter Text :</h2>
+                <textarea id="inputText" name="inputText" placeholder="Enter your text here..." required></textarea>
+            </div>
+            <h2 id="banner-title" class="text" >Choose a banner :</h2>
+            <div class="forChoice">
 
-    <header> 
-         <h1 class="title">ASCII-ART-WEB</h1>
-        </header>
-        
-         
-                <form action="/ascii-art" method="POST">
-                    <label for="inputText">Enter Text:</label><br>
-                    <textarea type="text" id="inputText" name="inputText" placeholder="enter your text" required></textarea><br><br>
-                    <input type="radio" id="standard" name="choice" value="standard" checked>
-                    <label for="standard">standard</label><br>
-                    <input type="radio" id="shadow" name="choice" value="shadow">
-                    <label for="shadow">shadow</label><br>
-                    <input type="radio" id="thinkertoy" name="choice" value="thinkertoy">
-                    <label for="thinkertoy">thinkertoy</label><br><br>
-                    <input type="submit" value="Submit" class="submit">
-                </form>
-         
-            {{if .Message}}
-                <h2>Generated ASCII Art:</h2>
-            <pre class="output">{{ .Message }}</pre>
-           
-        
-           
-            {{end}}
-        
+                
+                <div class="choice">
+                    <input type="radio" id="standard" value="standard"  name="choice" checked>
+                    <label for="standard">standard</label>
+                </div>
+
+                <div class="choice">
+                    <input type="radio" id="shadow" value="shadow" name="choice">
+                    <label  class="sw" for="shadow">shadow</label>
+                   
+                </div>
+
+                <div class="choice">
+                    <input type="radio" id="thinkertoy" value="thinkertoy" name="choice">
+                    <label for="thinkertoy">thinkertoy</label>
+                   
+                </div>
+            </div>
+            <button class="submit">Generate Ascii Art</button>
+            <div class="result">
+                <pre id="result-text" readonly>{{ .Ascii}}</pre>
+            </div>
+        </form>
+    </main>
 
 
-   
-   
-    
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>
