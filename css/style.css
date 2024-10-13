@@ -2,7 +2,7 @@
     margin: 0%;
 }
 body{
-    background-color: rgba(126, 109, 109, 0.445);
+    background-color: rgba(132, 130, 151, 0.884);
     
 }
 main {
@@ -22,12 +22,16 @@ main {
 label{
     font-size: 20px;
     font-weight: bold;
+   
+    
+}
+.choice{
     margin: 20px ;
     background-color:rgba(126, 109, 109, 0.445);
-    
+    width: 150px;
     border-radius: 20px;
     cursor: pointer;
-    
+    text-align: center;
 }
 
 input[type="radio"] {
@@ -35,8 +39,9 @@ input[type="radio"] {
    
   }
 
-input[type="radio"]:checked ~ label{
-    background-color:rgba(126, 109, 109, 0.2);
+input[type="radio"]:checked ~ label{ 
+    background-color:rgb(168, 156, 233);
+    
 }
 
 
@@ -143,7 +148,7 @@ input[type="radio"]:checked ~ label{
      margin: 15px 0px;
    
      label{
-        width: 300px;
+       
         font-size: small;
         
     }

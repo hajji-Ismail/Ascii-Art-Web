@@ -1,5 +1,5 @@
 body{
-    background-color: rgba(126, 109, 109, 0.445);
+    background-color: rgba(132, 130, 151, 0.884);
 
    
     display: flex;
@@ -36,7 +36,7 @@ button a{
 }
 button:hover{
     transition: background-color 0.8s linear;
-    background-color: rgb(116, 116, 116);
+    background-color:rgba(126, 109, 109, 0.445);
     a{
         color: rgb(17, 16, 16);
     }
