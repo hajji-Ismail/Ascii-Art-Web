@@ -23,6 +23,7 @@ label{
     font-size: 20px;
     font-weight: bold;
    
+   
     
 }
 .choice{
@@ -40,8 +41,7 @@ input[type="radio"] {
   }
 
 input[type="radio"]:checked ~ label{ 
-    background-color:rgb(168, 156, 233);
-    
+    background-color:rgb(168, 156, 233); 
 }
 
 
@@ -122,6 +122,18 @@ input[type="radio"]:checked ~ label{
     overflow-x: auto;
     overflow-y: auto;
 }
+
+#result-text::-webkit-scrollbar {
+    width: 10px; 
+    height: 10px; 
+    background-color: #525252; 
+  }
+  
+  #result-text::-webkit-scrollbar-thumb {
+    background-color: rgb(168, 156, 233); 
+    border-radius: 10px; 
+  }
+
 
 
 
