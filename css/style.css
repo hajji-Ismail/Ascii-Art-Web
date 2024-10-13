@@ -1,17 +1,20 @@
-*{
+* {
     margin: 0%;
 }
-body{
+
+body {
     background-color: rgba(132, 130, 151, 0.884);
-    
+
 }
+
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    
+
 }
+
 .title {
     text-align: center;
     padding: 25px 0px;
@@ -19,29 +22,34 @@ main {
     background-color: #070707;
     color: #fff;
 }
-label{
+
+label {
     font-size: 20px;
-    font-weight: bold;
-   
-   
-    
-}
-.choice{
-    margin: 20px ;
-    background-color:rgba(126, 109, 109, 0.445);
-    width: 150px;
+    font-weight: 200;
     border-radius: 20px;
     cursor: pointer;
     text-align: center;
+    padding: 5px 30px;
+}
+
+.choice {
+    margin: 20px;
+    background-color: rgba(132, 130, 151, 0.884);
+    width: auto;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px 0px;
 }
 
 input[type="radio"] {
     display: none;
-   
-  }
 
-input[type="radio"]:checked ~ label{ 
-    background-color:rgb(168, 156, 233); 
+}
+
+input[type="radio"]:checked~label {
+    background-color: rgb(168, 156, 233);
+
 }
 
 
@@ -63,9 +71,9 @@ input[type="radio"]:checked ~ label{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#inputText{
+#inputText {
     padding: 10px;
-   
+
     width: 98%;
     background-color: #dddddd5d;
     min-height: 100px;
@@ -78,10 +86,10 @@ input[type="radio"]:checked ~ label{
 }
 
 .forChoice {
-   display: flex;
-   justify-content: space-evenly;
-   justify-items: center;
-   margin-bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    justify-items: center;
+    margin-bottom: 20px;
 }
 
 .submit {
@@ -97,42 +105,43 @@ input[type="radio"]:checked ~ label{
 }
 
 .submit:hover {
-    background-color: #444444;
+    background-color: #646262;
 }
 
 .result {
     margin-top: 20px;
     padding: 20px;
+    max-height: 300px;
     background-color: #f7f7f7;
     border: 1px solid #ddd;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    
+
 }
 
 #result-text {
-     width: 98%;
-     min-height: 200px;
-
+    width: 98%;
+    min-height: 200px;
+    margin-right: 200px;
+    max-height: 200px;
     padding: 10px;
     font-family: monospace;
     font-size: 14px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
-    overflow-x: auto;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 #result-text::-webkit-scrollbar {
-    width: 10px; 
-    height: 10px; 
-    background-color: #525252; 
-  }
-  
-  #result-text::-webkit-scrollbar-thumb {
-    background-color: rgb(168, 156, 233); 
-    border-radius: 10px; 
-  }
+    width: 10px;
+    height: 10px;
+    background-color: #525252;
+}
+
+#result-text::-webkit-scrollbar-thumb {
+    background-color: rgb(168, 156, 233);
+    border-radius: 10px;
+}
 
 
 
@@ -140,14 +149,15 @@ input[type="radio"]:checked ~ label{
 
 
 @media (max-width : 600px) {
-    .title{
+    .title {
         font-size: medium;
-    }  
-    .text{
+    }
+
+    .text {
         font-size: small;
     }
 
-    .submit{
+    .submit {
         font-size: small;
     }
 
@@ -155,19 +165,21 @@ input[type="radio"]:checked ~ label{
 
         display: block;
     }
-    .choice{
-       width: 50%;
-     margin: 15px 0px;
-   
-     label{
-       
-        font-size: small;
-        
-    }
+
+    .choice {
+        width: 50%;
+        margin: 15px;
+
+        label {
+
+            font-size: small;
+
+        }
     }
 
-    #inputText , #result-text{
+    #inputText,
+    #result-text {
         width: 95%;
     }
-    
+
 }

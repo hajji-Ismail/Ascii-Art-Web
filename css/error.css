@@ -6,10 +6,13 @@ body{
     flex-direction: column;
     align-items: center;
     padding: 20px;
+}section{
+    display: block;
+    text-align: center;
 }
 .Ops{
+
     font-size: 90px;
-    
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(19, 18, 18);
  
@@ -19,7 +22,7 @@ body{
     
     font-size: 50px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-align: center;
+  
 }
 button{
     background-color: rgb(3, 3, 3);
