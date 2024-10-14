@@ -13,6 +13,6 @@ func main() {
 	http.HandleFunc("/ascii-art", server.SubmitHandler)
 	http.HandleFunc("/css/error.css", server.CssErrHundle)
 
-	fmt.Println("Server is running on port 8080", ">>> http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("Server on port 8080", ">>> http://localhost:8080")
+	http.ListenAndServe("", nil)
 }
