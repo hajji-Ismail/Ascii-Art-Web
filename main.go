@@ -14,5 +14,5 @@ func main() {
 	http.HandleFunc("/css/error.css", server.CssErrHundle)
 
 	fmt.Println("Server on port 8080", ">>> http://localhost:8080")
-	http.ListenAndServe("", nil)
+	http.ListenAndServe(":8080", nil)
 }
