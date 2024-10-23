@@ -12,6 +12,7 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    
 
 }
 
@@ -35,11 +36,12 @@ label {
 .choice {
     margin: 20px;
     background-color: rgba(132, 130, 151, 0.884);
+    color: #000000;
     width: auto;
     border-radius: 20px;
     cursor: pointer;
     text-align: center;
-    padding: 5px 0px;
+    padding: 10px 5px;
 }
 
 input[type="radio"] {
@@ -48,7 +50,8 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked~label {
-    background-color: rgb(168, 156, 233);
+    background-color: rgb(255, 255, 255);
+    color: #242424;
 
 }
 
@@ -148,7 +151,7 @@ input[type="radio"]:checked~label {
 
 
 
-@media (max-width : 600px) {
+@media (max-width : 800px) {
     .title {
         font-size: medium;
     }
@@ -167,14 +170,22 @@ input[type="radio"]:checked~label {
     }
 
     .choice {
-        width: 50%;
-        margin: 15px;
+        background-color: rgba(132, 130, 151, 0.884);
+        color: #000000;
+
+        display: flex;
+        flex-direction: column;
+        padding: 5px 5px;
 
         label {
 
             font-size: small;
+            
+           margin: 0px;
 
         }
+
+        
     }
 
     #inputText,

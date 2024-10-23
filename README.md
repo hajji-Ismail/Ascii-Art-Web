@@ -1,8 +1,11 @@
 ## ASCII Art Web Application
+
 ## Overview
-This is a simple web application that generates ASCII art based on user input. The application uses the Go programming language and the net/http package to handle HTTP requests and responses.
+
+This project is a simple web server built in Go and containerized using Docker. It demonstrates the basics of creating a web server, handling HTTP requests, and serving HTML content. The project also applies good practices for Dockerfile creation and includes metadata for Docker objects.
 
 ## Features
+
 Users can input text and select a banner style to generate ASCII art.
 The application supports three banner styles:
   * **Standard**: A classic, simple style for ASCII art.
@@ -34,3 +37,33 @@ functions: A custom package that provides functions for reading banner templates
 
 ## Styling
 The application uses a simple, responsive design to ensure that the ASCII art is displayed clearly on a variety of devices. The styling is done using CSS, and the layout is designed to be easy to use and navigate.
+# docker
+## Prerequisites
+
+mack sure Docker installed on your machine
+
+Basic understanding of Go and Docker concepts
+
+## Building the Docker Image
+
+* Build the Docker image:`docker build -f Dockerfile -t go-web-server:latest .`
+
+## Running the Docker Container
+* Run the Docker container:
+
+
+docker run -d -p 8080:8080 --name go-web-server go-web-server:latest
+ * Access the web server in your browser at http://localhost:8080.
+
+ ## Stopping and Removing the Container
+- Stop the running container: ` docker stop go-web-server `
+
+- Remove the container: `docker rm go-web-server`
+
+
+
+## Garbage Collection
+To clean up unused Docker objects (images, containers, networks), you can run: `./garbage.sh` or `docker system prune -f`
+
+
+

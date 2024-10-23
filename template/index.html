@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>ASCII-ART-WEB</title>
 
 </head>
@@ -17,49 +17,42 @@
         <form class="form" action="/ascii-art" method="POST">
             <div class="forText">
                 <h2 class="text">Enter Text :</h2>
-                <textarea id="inputText" name="inputText" placeholder="Enter your text here..." required></textarea>
+                <textarea id="inputText" name="inputText" placeholder="Enter your text here..." maxlength="500" required></textarea>
             </div>
-            <h2 id="banner-title" class="text" >Choose a banner :</h2>
+            <h2 id="banner-title" class="text">Choose a banner :</h2>
             <div class="forChoice">
-
-                
                 <div class="choice">
-                    <input type="radio" id="standard" value="standard"  name="choice" checked>
+                    <input type="radio" id="standard" value="standard" name="choice" checked>
                     <label for="standard">standard</label>
                 </div>
 
                 <div class="choice">
                     <input type="radio" id="shadow" value="shadow" name="choice">
-                    <label  class="sw" for="shadow">shadow</label>
-                   
+                    <label class="sw" for="shadow">shadow</label>
+
                 </div>
 
                 <div class="choice">
                     <input type="radio" id="thinkertoy" value="thinkertoy" name="choice">
                     <label for="thinkertoy">thinkertoy</label>
-                   
+
                 </div>
             </div>
             <button class="submit">Generate Ascii Art</button>
             <div class="result">
-               <div id="result-text" >
-                <pre readonly>{{ .Ascii}}</pre>
-               </div>
+                <div id="result-text">
+                    <pre readonly>{{ .}}</pre>
+                </div>
             </div>
+            {{ if . }}
+     
+            <a href="/export?exportme= {{ . }}" class="export-button" >
+                <button id="export" class="submit" type="button">Export Ascii Art</button>
+            </a>
+            {{ end }}
         </form>
+       
     </main>
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 
 </html>
