@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 
 	"ascii-art-web/functions"
 )
@@ -153,6 +154,12 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 func ServStatic(w http.ResponseWriter, r *http.Request) {
 	// Check if the request is for the CSS directory itself
 	if r.URL.Path == "/css/" || r.URL.Path == "/css" {
+		w.WriteHeader(http.StatusNotFound)
+		parsedFiles.ErrorTemplate.Execute(w, "NOT FOUND")
+		return
+	}
+	_,err := os.Stat(r.URL.Path[1:])
+	if  err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		parsedFiles.ErrorTemplate.Execute(w, "NOT FOUND")
 		return
