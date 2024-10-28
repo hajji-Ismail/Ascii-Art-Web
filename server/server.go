@@ -180,7 +180,7 @@ func ExportHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Disposition", "attachment; filename=Ascii-Art.txt")
 	w.Header().Set("Content-Type", "text/plain")
 	w.Header().Set("Cache-Control", "no-cache")
-	w.WriteHeader(http.StatusOK)
+	
 
 	_, err := w.Write([]byte(export_result))
 	if err != nil {
