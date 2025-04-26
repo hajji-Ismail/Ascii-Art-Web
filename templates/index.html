@@ -11,7 +11,8 @@
 
 <body>
     <header>
-        <h1 class="title">ASCII ART WEB</h1>
+        
+        <h1 class="title"><a href="/">ASCII ART WEB</a></h1>
     </header>
     <main>
         <form class="form" action="/ascii-art" method="POST">
@@ -41,12 +42,12 @@
             <button class="submit">Generate Ascii Art</button>
             <div class="result">
                 <div id="result-text">
-                    <pre readonly>{{ .}}</pre>
+                    <pre readonly>{{ . }}</pre>
                 </div>
             </div>
             {{ if . }}
      
-            <a href="/export?exportme= {{ . }}" class="export-button" >
+            <a href="/export?exportme={{ . }}" class="export-button" >
                 <button id="export" class="submit" type="button">Export Ascii Art</button>
             </a>
             {{ end }}

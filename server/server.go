@@ -1,11 +1,13 @@
 package server
 
 import (
+	"bytes"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"ascii-art-web/functions"
 )
@@ -16,9 +18,9 @@ multiple use and avoiding template parrsing caching
 */
 
 type ParsedFiles struct {
-	Temple01      *template.Template
-	ErrorTemplate *template.Template
-	lastAsciiArt  string
+	AllTemplates *template.Template
+	buf          bytes.Buffer
+	lastAsciiArt string
 }
 
 var parsedFiles ParsedFiles
@@ -32,15 +34,9 @@ to ensure  that our templates are parsed only once
 */
 func init() {
 	var err error
-	parsedFiles.Temple01, err = template.ParseFiles("template/index.html")
+	parsedFiles.AllTemplates, err = template.ParseGlob("./templates/*.html")
 	if err != nil {
-		log.Fatalf("Error parsing the file: %s", err)
-		return
-	}
-	parsedFiles.ErrorTemplate, err = template.ParseFiles("template/error.html")
-	if err != nil {
-		log.Fatalf("Error parsing the file: %s", err)
-		return
+		log.Fatal(err)
 	}
 }
 
@@ -52,23 +48,23 @@ that  will handle the http request only with get request and return the response
 func Home(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		parsedFiles.ErrorTemplate.Execute(w, "MethodNotAllowed")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "MethodNotAllowed")
 		return
 	}
 
 	if r.URL.Path != "/" {
-
 		w.WriteHeader(http.StatusNotFound)
-		parsedFiles.ErrorTemplate.Execute(w, "NOT FOUND")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "NOT FOUND")
 		return
 	}
-
-	err := parsedFiles.Temple01.Execute(w, nil)
+	parsedFiles.buf.Reset()
+	err := parsedFiles.AllTemplates.ExecuteTemplate(&parsedFiles.buf, "index.html", nil)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		parsedFiles.ErrorTemplate.Execute(w, "Internal Server Error")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Internal Server Error")
 		return
 	}
+	parsedFiles.AllTemplates.ExecuteTemplate(w, "index.html", nil)
 }
 
 /*
@@ -92,23 +88,22 @@ that post to the client the generated ascii arrt
 func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		parsedFiles.ErrorTemplate.Execute(w, "Method Not Allowed")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Method Not Allowed")
 		return
 	}
-
 	// extract the input text and ther banner fromthe request
 	inputText := r.FormValue("inputText")
 	banner := r.FormValue("choice")
 
 	if len(inputText) > maxInputTextLength {
 		w.WriteHeader(http.StatusBadRequest)
-		parsedFiles.ErrorTemplate.Execute(w, "input text exceeds 500 characters")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "input text exceeds 500 characters")
 		return
 	}
 
 	if len(inputText) == 0 {
 		w.WriteHeader(http.StatusBadRequest)
-		parsedFiles.ErrorTemplate.Execute(w, "Enter a text")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Enter a text")
 		return
 	}
 
@@ -117,11 +112,11 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if status {
 			w.WriteHeader(http.StatusInternalServerError)
-			parsedFiles.ErrorTemplate.Execute(w, "Internal Server Error")
+			parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Internal Server Error")
 			return
 		} else {
 			w.WriteHeader(http.StatusNotFound)
-			parsedFiles.ErrorTemplate.Execute(w, " BANNER NOT FOUND")
+			parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", " BANNER NOT FOUND")
 			return
 		}
 	}
@@ -129,7 +124,7 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	// This condition for internal errors if the banners get changed
 	if len(templ) != 856 {
 		w.WriteHeader(http.StatusInternalServerError)
-		parsedFiles.ErrorTemplate.Execute(w, "Internal Server Error")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Internal Server Error")
 		return
 	}
 
@@ -138,55 +133,59 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	parsedFiles.lastAsciiArt = treatedText
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		parsedFiles.ErrorTemplate.Execute(w, "Our ascii program  do not suport non-ascii printable characters")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Our ascii program  do not suport non-ascii printable characters")
 		return
 	}
 
 	// Exexute  the template with the generated ascii art
-	err = parsedFiles.Temple01.Execute(w, treatedText)
+	// treatedText = strings.TrimSpace(treatedText)
+	parsedFiles.buf.Reset()
+	err = parsedFiles.AllTemplates.ExecuteTemplate(&parsedFiles.buf, "index.html", treatedText)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		parsedFiles.ErrorTemplate.Execute(w, "Internal Server Error")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Internal Server Error")
 		return
 	}
+
+	parsedFiles.AllTemplates.ExecuteTemplate(w, "index.html", treatedText)
 }
 
 func ServStatic(w http.ResponseWriter, r *http.Request) {
-	// Check if the request is for the CSS directory itself
-	if r.URL.Path == "/css/" || r.URL.Path == "/css" {
-		w.WriteHeader(http.StatusNotFound)
-		parsedFiles.ErrorTemplate.Execute(w, "NOT FOUND")
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Method not allowed")
 		return
 	}
-	_,err := os.Stat(r.URL.Path[1:])
-	if  err != nil {
+	file, err := os.Stat(r.URL.Path[1:])
+	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
-		parsedFiles.ErrorTemplate.Execute(w, "NOT FOUND")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "NOT FOUND")
 		return
 	}
-
-	// Serve the CSS file if it's a valid request
-	http.StripPrefix("/css/", http.FileServer(http.Dir("css"))).ServeHTTP(w, r)
+	if file.IsDir() {
+		w.WriteHeader(http.StatusNotFound)
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "NOT FOUND")
+		return
+	}
+	http.ServeFile(w, r, r.URL.Path[1:])
 }
 
 func ExportHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		parsedFiles.ErrorTemplate.Execute(w, "Method Not Allowed")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Method Not Allowed")
 		return
 	}
 	export_result := r.URL.Query().Get("exportme")
-	
+
 	w.Header().Set("Content-Disposition", "attachment; filename=Ascii-Art.txt")
 	w.Header().Set("Content-Type", "text/plain")
-	w.Header().Set("Cache-Control", "no-cache")
-	
+	w.Header().Set("Content-Length", strconv.Itoa(len([]byte(export_result))))
 
 	_, err := w.Write([]byte(export_result))
 	if err != nil {
-		//log.Println("Error writing file:", err)
 		w.WriteHeader(http.StatusInternalServerError)
-		parsedFiles.ErrorTemplate.Execute(w, "Internal Server Error")
+		parsedFiles.AllTemplates.ExecuteTemplate(w, "error.html", "Internal Server Error")
 		return
 	}
 }

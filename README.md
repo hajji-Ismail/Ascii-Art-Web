@@ -1,4 +1,4 @@
-## ASCII Art Web Application
+## ASCII Art Web 
 
 ## Overview
 
@@ -60,7 +60,12 @@ docker run -d -p 8080:8080 --name go-web-server go-web-server:latest
 
 - Remove the container: `docker rm go-web-server`
 
+# Export Feature
+The export feature allows users to download the generated ASCII art as a .txt file. Here’s how it works:
 
+1. After generating ASCII art, click the "Export" button.
+2. The application will generate a .txt file containing the ASCII art.
+3. The file will be automatically downloaded to your device.
 
 ## Garbage Collection
 To clean up unused Docker objects (images, containers, networks), you can run: `./garbage.sh` or `docker system prune -f`
